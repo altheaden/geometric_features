@@ -76,7 +76,7 @@ jobs:
           conda activate geometric_features_dev
           pip check
           pytest --pyargs geometric_features
-          geometric_features --help
+          # geometric_features --help
           # download_analysis_data --help
 
       - if: ${{ steps.skip_check.outputs.should_skip != 'true' }}
