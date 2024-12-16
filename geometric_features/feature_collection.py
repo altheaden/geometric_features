@@ -282,7 +282,7 @@ class FeatureCollection(object):
         for featureIndex, feature in enumerate(self.features):
             name = feature['properties']['name']
             if show_progress:
-                widgets[0] = '{}: '.format(name)
+                widgets[0] = f'{name}: '
             featureShape = shapely.geometry.shape(feature['geometry'])
             add = True
             masked = False
@@ -613,12 +613,10 @@ def _validate_feature(feature):
         name = 'unknown'
     for outerKey in required:
         if outerKey not in feature:
-            raise KeyError('Feature {} missing [{}] key'.format(
-                name, outerKey))
+            raise KeyError(f'Feature {name} missing [{outerKey}] key')
         for innerKey in required[outerKey]:
             if innerKey not in feature[outerKey]:
-                raise KeyError('Feature {} missing [{}][{}] key'.format(
-                    name, outerKey, innerKey))
+                raise KeyError(f'Feature {name} missing [{outerKey}][{innerKey}] key')
 
     geomType = feature['geometry']['type']
     objectType = feature['properties']['object']
@@ -750,5 +748,4 @@ def _round_coords(coordinates, digits=6):
     elif isinstance(coordinates, tuple):
         return tuple([_round_coords(c, digits) for c in coordinates])
     else:
-        raise TypeError('Unexpected type for coordinates {}'.format(
-                coordinates))
+        raise TypeError(f'Unexpected type for coordinates {coordinates}')
